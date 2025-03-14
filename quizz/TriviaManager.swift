@@ -13,6 +13,7 @@ class TriviaManager: ObservableObject {
     @Published private(set) var length = 0
     @Published private(set) var index = 0
     @Published private(set) var score = 0
+    @Published private(set) var answered = 0
     @Published private(set) var isFinished = false
     @Published private(set) var answerSelected = false
     @Published private(set) var question: AttributedString = ""
@@ -20,6 +21,7 @@ class TriviaManager: ObservableObject {
     @Published private(set) var progress: CGFloat = 0
     @Published private(set) var isLoading = false // Track loading state
     @Published private(set) var errorMessage: String? // Track errors
+    
     
     @MainActor
     func fetchTrivia() async {
@@ -39,49 +41,21 @@ class TriviaManager: ObservableObject {
             // Delay to reduce chance of hitting rate limits
             try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
             
-            let (data, response) = try await URLSession.shared.data(for: urlRequest)
-            
-            // Debug: Print response status code and data
-            guard let httpResponse = response as? HTTPURLResponse else {
-                errorMessage = "Invalid response type"
-                isLoading = false
-                return
-            }
-            print("Status code: \(httpResponse.statusCode)")
-            print("Response data: \(String(data: data, encoding: .utf8) ?? "Invalid data")")
-            
-            guard httpResponse.statusCode == 200 else {
-                errorMessage = "Invalid status code \(httpResponse.statusCode)"
-                isLoading = false
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            // Debug: Print raw JSON data
-            if let jsonString = String(data: data, encoding: .utf8) {
-                print("Raw JSON data: \(jsonString)")
-            }
+            let (data, _) = try await URLSession.shared.data(for: urlRequest)
             
             // Decode the data
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             let decodedData = try decoder.decode(Trivia.self, from: data)
-            print("Decoded data: \(decodedData)")
             
             // Update state on the main thread
             DispatchQueue.main.async{
-            //await MainActor.run {
                 self.trivia = decodedData.results
                 self.length = self.trivia.count
                 self.setQuestion()
                 self.isLoading = false
             }
             
-            print("Trivia fetched: \(self.trivia)")
-            print("Number of questions: \(self.length)")
-            if !self.trivia.isEmpty {
-                print("First question: \(self.trivia[0].formattedQuestion)")
-            }
             
         } catch {
             await MainActor.run {
@@ -117,6 +91,7 @@ class TriviaManager: ObservableObject {
         if answer.isCorrect {
             score += 1
         }
+        answered += 1
         answerSelected = true
     }
     

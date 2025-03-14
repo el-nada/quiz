@@ -10,7 +10,13 @@ import SwiftUI
 struct TriviaView: View {
     @EnvironmentObject var trivia_manager : TriviaManager
     var body: some View {
-        QuestionView().environmentObject(trivia_manager)
+        if trivia_manager.isFinished{
+            EndView()
+                .environmentObject(trivia_manager)
+        }
+        else {
+            QuestionView().environmentObject(trivia_manager)
+        }
     }
 }
 

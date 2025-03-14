@@ -21,11 +21,13 @@ struct QuestionRow: View {
             Text(question)
                 .font(.system(size: 20, weight: .bold, design: .default))
                 .foregroundColor(.white)
-                .padding(.top, 40.0)
-                .padding(.leading)
+                .padding(.top, 30)
+                .padding(.horizontal)
                 
             
-        }.padding(20)
+        }
+        .shadow( color: .gray.opacity(0.8), radius: 5) // Add shading
+        .padding()
     }
 }
 

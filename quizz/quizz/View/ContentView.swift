@@ -24,11 +24,13 @@ struct ContentView: View {
                             Text("IQUIZ")
                                 .font(.system(size: 50, weight: .bold, design: .default))
                                 .foregroundColor(Color(red: 49/255, green: 173/255, blue: 1))
-                            
+                            /*
+                            If i want to add player's name for leaderboard
                             Spacer()
                             Spacer()
                             
-                            VStack {
+                            
+                             VStack {
                                 Text("Enter your name:")
                                     .font(.system(size: 30, weight: .bold, design: .default))
                                     .foregroundColor(Color(red: 108/255, green: 196/255, blue: 1))
@@ -37,9 +39,11 @@ struct ContentView: View {
                             }
                             
                             Spacer()
+                             */
                             
                             if trivia_manager.isLoading {
-                                ProgressView("Loading...") // Show a spinner while loading
+                                ProgressView("Loading...")
+                                    .foregroundColor(Color(red: 108/255, green: 196/255, blue: 1))
                                     .padding()
                             } else if let errorMessage = trivia_manager.errorMessage {
                                 Text("Error: \(errorMessage)") // Show error message if any

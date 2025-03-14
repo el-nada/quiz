@@ -13,19 +13,6 @@ struct ProgressBar: View {
     var totalLevels : Int
     
     var body: some View {
-        HStack{
-            Spacer()
-            
-            Button {
-                print("Edit button was tapped")
-            } label: {
-                Image(systemName: "xmark.circle.fill")
-            }
-            .font(.system(size: 30))
-            .foregroundColor(Color (red: 49/255, green:173/255, blue:1))
-            
-            
-            
             ZStack{
                 
                 //Other option for style
@@ -37,7 +24,6 @@ struct ProgressBar: View {
                 //    .cornerRadius(20)
                 //    .overlay( RoundedRectangle(cornerRadius: 20)
                 //        .stroke(Color(Color (red: 49/255, green:173/255, blue:1))).opacity(0.6))
-                
                 
                 HStack{
                     ZStack(alignment: .topLeading){
@@ -60,9 +46,6 @@ struct ProgressBar: View {
                         .foregroundColor(Color(red: 49/255, green:173/255, blue:1))
                         .padding(.trailing, 10.0)
                 }
-                
-                
-            }
         }
                     
     }

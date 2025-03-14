@@ -9,8 +9,10 @@ import SwiftUI
 
 struct QuestionView: View {
     @EnvironmentObject var trivia_manager : TriviaManager
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
+        
         ZStack{
             Rectangle()
                 .ignoresSafeArea()
@@ -19,8 +21,16 @@ struct QuestionView: View {
             
             
             VStack{
-                
-                ProgressBar(progress: trivia_manager.progress, level: trivia_manager.index+1, totalLevels: trivia_manager.length)
+                HStack{
+                    Button {
+                        dismiss() // Dismisses the current view
+                        trivia_manager.resetQuiz()
+                    } label: {
+                        ExitButton()
+                    }
+                    
+                    ProgressBar(progress: trivia_manager.progress, level: trivia_manager.index+1, totalLevels: trivia_manager.length)
+                }
                 
                 QuestionRow(question : trivia_manager.question, time:true)
                 Spacer()
@@ -41,15 +51,15 @@ struct QuestionView: View {
                     }
                     .padding(.bottom, 5) // Add padding at the bottom
                 }
-            
+                
             }
-        
+            
         }
     }
 }
 
-    struct QuestionViewPreview : PreviewProvider {
-        static var previews: some View {
-            QuestionView().environmentObject(TriviaManager())
-        }
+struct QuestionViewPreview : PreviewProvider {
+    static var previews: some View {
+        QuestionView().environmentObject(TriviaManager())
+    }
 }
