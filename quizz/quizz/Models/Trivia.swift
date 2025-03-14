@@ -8,16 +8,13 @@
 import Foundation
 
 struct Trivia: Decodable {
-    var responseCode: Int
     var results: [Result]
     
-    enum CodingKeys: String, CodingKey {
-        case responseCode = "response_code"
-        case results
-    }
     
     struct Result: Decodable, Identifiable {
-        var id = UUID() // Not part of the JSON
+        var id : UUID{
+            UUID()
+        }
         var type: String
         var difficulty: String
         var category: String
@@ -25,11 +22,6 @@ struct Trivia: Decodable {
         var correctAnswer: String
         var incorrectAnswers: [String]
         
-        enum CodingKeys: String, CodingKey {
-            case type, difficulty, category, question
-            case correctAnswer = "correct_answer"
-            case incorrectAnswers = "incorrect_answers"
-        }
         
         var formattedQuestion: AttributedString {
             do {

@@ -49,7 +49,7 @@ struct ContentView: View {
                                 Button {
                                     Task {
                                         await trivia_manager.fetchTrivia() // Fetch data
-                                        //navigationPath.append("TriviaView") // Trigger navigation
+                                        navigationPath.append("TriviaView") // Trigger navigation
                                     }
                                 } label: {
                                     PrimaryButton(text: "Start")

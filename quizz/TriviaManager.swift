@@ -33,12 +33,13 @@ class TriviaManager: ObservableObject {
             isLoading = false
             return
         }
+        let urlRequest = URLRequest(url: url)
         
         do {
             // Delay to reduce chance of hitting rate limits
             try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
             
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
             
             // Debug: Print response status code and data
             guard let httpResponse = response as? HTTPURLResponse else {
@@ -68,7 +69,8 @@ class TriviaManager: ObservableObject {
             print("Decoded data: \(decodedData)")
             
             // Update state on the main thread
-            await MainActor.run {
+            DispatchQueue.main.async{
+            //await MainActor.run {
                 self.trivia = decodedData.results
                 self.length = self.trivia.count
                 self.setQuestion()
