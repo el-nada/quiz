@@ -22,4 +22,10 @@ struct TriviaView: View {
     }
 }
 
+struct TriviaView_Previews: PreviewProvider {
+    static var previews: some View {
+        TriviaView(navigationPath: .constant(NavigationPath()))
+            .environmentObject(TriviaManager())
+    }
+}
 

@@ -18,9 +18,11 @@ class TriviaManager: ObservableObject {
     @Published private(set) var answerSelected = false
     @Published private(set) var question: AttributedString = ""
     @Published private(set) var answerChoices: [Answer] = []
+    @Published private(set) var previousAnswers: [Answer] = [] // if i want to only show the wrong answers in answer view
     @Published private(set) var progress: CGFloat = 0
     @Published private(set) var isLoading = false // Track loading state
     @Published private(set) var errorMessage: String? // Track errors
+    @Published var viewAnswer: Bool = false
     
     
     @MainActor
@@ -106,5 +108,11 @@ class TriviaManager: ObservableObject {
         answerChoices = []
         progress = 0
         answered=0
+    }
+    
+    func viewAnswers(){
+        index = 0
+        isFinished = false
+        viewAnswer = true
     }
 }

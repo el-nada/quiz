@@ -23,6 +23,7 @@ struct QuestionView: View {
             VStack{
                 HStack{
                     Button {
+                        trivia_manager.viewAnswer = false
                         navigationPath = NavigationPath()
                         trivia_manager.resetQuiz()
                     } label: {
@@ -59,3 +60,9 @@ struct QuestionView: View {
 }
 
 
+struct QuestionView_Previews: PreviewProvider {
+    static var previews: some View {
+        QuestionView(navigationPath: .constant(NavigationPath()))
+            .environmentObject(TriviaManager())
+    }
+}

@@ -132,6 +132,7 @@ struct EndView: View {
                     
                     VStack{
                         Button{
+                            trivia_manager.viewAnswer=false
                             navigationPath = NavigationPath()
                             trivia_manager.resetQuiz()
                         }label: {
@@ -157,6 +158,7 @@ struct EndView: View {
                         } else {
                             Button {
                                 Task {
+                                    trivia_manager.viewAnswer=false
                                     await trivia_manager.fetchTrivia() // Fetch data
                                     trivia_manager.resetQuiz()
                                     navigationPath.append("TriviaView") // Trigger navigation
@@ -175,7 +177,8 @@ struct EndView: View {
                     
                     VStack{
                         Button{
-                            
+                            trivia_manager.viewAnswers()
+                            navigationPath.append("TriviaView")
                         }label: {
                             Image(systemName: "eye.circle.fill")
                                 .font(.system(size: 40))

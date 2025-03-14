@@ -26,7 +26,7 @@ struct AnswerRow: View {
                     .font(.system(size: 20))
                     .opacity(isSelected ? 0 : 1)
                 
-                if isSelected{
+                if (isSelected || trivia_manager.viewAnswer){
                     Button {
                     
                     } label: {
@@ -42,22 +42,33 @@ struct AnswerRow: View {
     
         }
         .contentShape(Rectangle()) // Make the entire area tappable
-        .onTapGesture {
-            if !trivia_manager.answerSelected {
-                isSelected.toggle()
-                trivia_manager.selectAnswer(answer: answer)
+            .onTapGesture {
+                if (!trivia_manager.answerSelected && !trivia_manager.viewAnswer){
+                    isSelected.toggle()
+                    trivia_manager.selectAnswer(answer: answer)
+                }
             }
-        }
-        .padding()
-        .foregroundColor(isSelected ? .gray : Color(red: 49/255, green: 173/255, blue: 1))
-        .background(Color.white)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(isSelected ? .gray : Color(red: 49/255, green: 173/255, blue: 1))
-        )
-        .shadow(color: isSelected ? (answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8)) : .gray.opacity(0.8), radius: 5)
-        .padding(.horizontal)
+            .padding()
+            .foregroundColor(isSelected ? .gray : Color(red: 49/255, green: 173/255, blue: 1))
+            .background(Color.white)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isSelected ? .gray : Color(red: 49/255, green: 173/255, blue: 1))
+            )
+            .shadow(
+                color: {
+                        if trivia_manager.viewAnswer {
+                            // Show green/red based on correctness when answers are visible
+                            answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8)
+                        } else {
+                            // Default behavior: blue if selected, gray otherwise
+                            isSelected ? (answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8)) : .gray.opacity(0.8)
+                        }
+                    }(),
+                    radius: 5
+                )
+            .padding(.horizontal)
     }
 }
 
