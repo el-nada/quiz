@@ -6,33 +6,66 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
+    @StateObject var trivia_manager = TriviaManager()
+    @State private var navigationPath = NavigationPath() // For programmatic navigation
+    @State private var playerName: String = "" // State variable for player name
+    
     var body: some View {
-        ZStack{
-            Rectangle()
-                .ignoresSafeArea()
-                .foregroundColor(
-                    Color( red: 220 / 255, green: 241 / 255, blue: 1))
-            
-            VStack{
-                Spacer()
-                Text("IQUIZ")
-                    .font(.system(size: 50, weight: .bold, design: .default))
-                    .foregroundColor(Color(red: 49/255, green:173/255, blue:1))
-                Spacer()
-                Spacer()
-                VStack{
-                    Text("Enter your name :")
-                        .font(.system(size: 30, weight: .bold, design: .default))
-                        .foregroundColor(Color(red:108/255,green:196/255, blue:1))
-                    Input(placeholder: "Name")
+        NavigationStack(path: $navigationPath) {
+                    ZStack {
+                        Rectangle()
+                            .ignoresSafeArea()
+                            .foregroundColor(Color(red: 220/255, green: 241/255, blue: 1))
                         
-                }
-                Spacer()
-                PrimaryButton(text: "Start")
-                Spacer()
-            }
+                        VStack {
+                            Spacer()
+                            
+                            Text("IQUIZ")
+                                .font(.system(size: 50, weight: .bold, design: .default))
+                                .foregroundColor(Color(red: 49/255, green: 173/255, blue: 1))
+                            
+                            Spacer()
+                            Spacer()
+                            
+                            VStack {
+                                Text("Enter your name:")
+                                    .font(.system(size: 30, weight: .bold, design: .default))
+                                    .foregroundColor(Color(red: 108/255, green: 196/255, blue: 1))
+                                
+                                Input(placeholder: "Name")
+                            }
+                            
+                            Spacer()
+                            
+                            if trivia_manager.isLoading {
+                                ProgressView("Loading...") // Show a spinner while loading
+                                    .padding()
+                            } else if let errorMessage = trivia_manager.errorMessage {
+                                Text("Error: \(errorMessage)") // Show error message if any
+                                    .foregroundColor(.red)
+                                    .padding()
+                            } else {
+                                Button {
+                                    Task {
+                                        await trivia_manager.fetchTrivia() // Fetch data
+                                        //navigationPath.append("TriviaView") // Trigger navigation
+                                    }
+                                } label: {
+                                    PrimaryButton(text: "Start")
+                                }
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    .navigationDestination(for: String.self) { destination in
+                        if destination == "TriviaView" {
+                            TriviaView()
+                                .navigationBarHidden(true)
+                                .environmentObject(trivia_manager)
+                        }
+                    }
         }
     }
 }

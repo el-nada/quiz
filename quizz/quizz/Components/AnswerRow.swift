@@ -8,30 +8,56 @@
 import SwiftUI
 
 struct AnswerRow: View {
-    var answer: String
+    @EnvironmentObject var trivia_manager : TriviaManager
+    var answer: Answer
+    @State private var isSelected = false
     
     var body: some View {
         
         HStack(){
-            Text(answer)
+            Text(answer.text)
                 .frame(maxWidth:.infinity, alignment:.leading)
                 .font(.system(size: 20, weight: .bold, design: .default))
-                
             
-            Button {
-                print("Edit button was tapped")
-            } label: {
-                Image(systemName: "circle")
+            ZStack{
+                Button {
+                    if !trivia_manager.answerSelected{
+                        isSelected.toggle()
+                        trivia_manager.selectAnswer(answer: answer)
+                    }
+                    
+                } label: {
+                    Image(systemName: "circle")
+                }
+                .font(.system(size: 20))
+                .opacity(isSelected ? 0 : 1)
+                
+                if isSelected{
+                    Button {
+                        print("Edit button was tapped")
+                    } label: {
+                        Image(systemName: answer.isCorrect ?
+                              "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundColor(answer.isCorrect ? .green : .red)
+                    }
+                    .font(.system(size: 20))
+                }
             }
-            .font(.system(size: 20))
+            
+            
     
         }
         .padding()
-        
-        .foregroundColor(Color( red: 49 / 255, green: 173 / 255, blue: 1))
-        .overlay( RoundedRectangle(cornerRadius: 12)
-            .stroke(Color(Color (red: 49/255, green:173/255, blue:1))))
+        .foregroundColor(isSelected ? .gray : Color(red: 49/255, green: 173/255, blue: 1))
+        .background(Color.white) // Add a background color for the shadow to be visible
+        .cornerRadius(12) // Match the corner radius of the overlay
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(isSelected ? .gray : Color(red: 49/255, green: 173/255, blue: 1))
+        )
+        .shadow( color:  isSelected ? (answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8) ) : .gray.opacity(0.8), radius: 5) // Add shading
         .padding(.horizontal)
+        
         
         
     }
@@ -39,6 +65,8 @@ struct AnswerRow: View {
 
 struct AnswerRowPreviews: PreviewProvider{
     static var previews: some View {
-        AnswerRow(answer: "Paris")
+        
+        AnswerRow(answer: Answer(text:"string", isCorrect:true))
+        .environmentObject(TriviaManager())
     }
 }

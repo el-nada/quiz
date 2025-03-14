@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuestionRow: View {
-    var question : String
+    var question : AttributedString
     var time : DarwinBoolean
     
     var body: some View {
