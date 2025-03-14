@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QuestionView: View {
     @EnvironmentObject var trivia_manager : TriviaManager
-    @Environment(\.dismiss) private var dismiss
+    @Binding var navigationPath: NavigationPath // Accept the Binding
     
     var body: some View {
         
@@ -23,7 +23,7 @@ struct QuestionView: View {
             VStack{
                 HStack{
                     Button {
-                        dismiss() // Dismisses the current view
+                        navigationPath = NavigationPath()
                         trivia_manager.resetQuiz()
                     } label: {
                         ExitButton()
@@ -58,8 +58,4 @@ struct QuestionView: View {
     }
 }
 
-struct QuestionViewPreview : PreviewProvider {
-    static var previews: some View {
-        QuestionView().environmentObject(TriviaManager())
-    }
-}
+

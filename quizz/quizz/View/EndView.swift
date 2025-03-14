@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EndView: View {
     @EnvironmentObject var trivia_manager : TriviaManager
-    @Environment(\.dismiss) private var dismiss
+    @Binding var navigationPath: NavigationPath // Accept the Binding
     
     var body: some View {
         ZStack{
@@ -63,7 +63,7 @@ struct EndView: View {
                                     Image(systemName: "circle.fill")
                                         .font(.system(size: 10))
                                     
-                                    Text("\(trivia_manager.answered/trivia_manager.length*100)%").font(.system(size: 20, weight: .bold, design: .default))
+                                    Text("\(trivia_manager.length > 0 ? (trivia_manager.answered * 100) / trivia_manager.length : 0)%").font(.system(size: 20, weight: .bold, design: .default))
                                 }
                                 
                                 Text("Completion").font(.system(size: 15)).padding(.leading, 20)
@@ -132,7 +132,7 @@ struct EndView: View {
                     
                     VStack{
                         Button{
-                            dismiss() // Dismisses the current view
+                            navigationPath = NavigationPath()
                             trivia_manager.resetQuiz()
                         }label: {
                             Image(systemName: "house.circle.fill")
@@ -146,15 +146,29 @@ struct EndView: View {
                     .foregroundColor(Color(red: 49/255, green: 173/255, blue: 1))
                     
                     VStack(alignment: .center){
-                        Button{
-                            
-                        }label: {
-                            Image(systemName: "arrow.counterclockwise.circle.fill")
-                                .font(.system(size: 40))
-                                
+                        if trivia_manager.isLoading {
+                            ProgressView("Loading...")
+                                .foregroundColor(Color(red: 108/255, green: 196/255, blue: 1))
+                                .padding()
+                        } else if let errorMessage = trivia_manager.errorMessage {
+                            Text("Error: \(errorMessage)") // Show error message if any
+                                .foregroundColor(.red)
+                                .padding()
+                        } else {
+                            Button {
+                                Task {
+                                    await trivia_manager.fetchTrivia() // Fetch data
+                                    trivia_manager.resetQuiz()
+                                    navigationPath.append("TriviaView") // Trigger navigation
+                                }
+                            } label: {
+                                Image(systemName: "arrow.counterclockwise.circle.fill")
+                                    .font(.system(size: 40))
+                            }
+                            Text("Play Again").font(.system(size: 20, weight:.bold, design: .default))
                         }
                         
-                        Text("Play Again").font(.system(size: 20, weight:.bold, design: .default))
+                        
                     }
                     .padding()
                     .foregroundColor(Color(red: 49/255, green: 173/255, blue: 1))
@@ -182,8 +196,10 @@ struct EndView: View {
     }
 }
 
+
 struct EndView_Previews: PreviewProvider {
     static var previews: some View {
-        EndView().environmentObject(TriviaManager())
+        EndView(navigationPath: .constant(NavigationPath()))
+            .environmentObject(TriviaManager())
     }
 }

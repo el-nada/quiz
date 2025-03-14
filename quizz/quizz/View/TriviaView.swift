@@ -9,19 +9,17 @@ import SwiftUI
 
 struct TriviaView: View {
     @EnvironmentObject var trivia_manager : TriviaManager
+    @Binding var navigationPath: NavigationPath // Accept the Binding
+    
     var body: some View {
         if trivia_manager.isFinished{
-            EndView()
+            EndView(navigationPath: $navigationPath)
                 .environmentObject(trivia_manager)
         }
         else {
-            QuestionView().environmentObject(trivia_manager)
+            QuestionView(navigationPath: $navigationPath).environmentObject(trivia_manager)
         }
     }
 }
 
-struct TriviaViewPreview : PreviewProvider {
-    static var previews: some View {
-        TriviaView().environmentObject(TriviaManager())
-    }
-}
+

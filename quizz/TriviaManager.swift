@@ -105,5 +105,6 @@ class TriviaManager: ObservableObject {
         question = ""
         answerChoices = []
         progress = 0
+        answered=0
     }
 }

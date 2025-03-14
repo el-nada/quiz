@@ -65,14 +65,14 @@ struct ContentView: View {
                     }
                     .navigationDestination(for: String.self) { destination in
                         if destination == "TriviaView" {
-                            TriviaView()
+                            TriviaView(navigationPath: $navigationPath)
                                 .navigationBarHidden(true)
                                 .environmentObject(trivia_manager)
                         }
                     }
         }
     }
-}
+}   
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
