@@ -13,27 +13,25 @@ struct QuestionRow: View {
     
     var body: some View {
         ZStack(alignment: .topLeading){
-            
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color( red: 49 / 255, green: 173 / 255, blue: 1))
-                .frame(width: .infinity, height: 150)
-            
-            Text(question)
-                .font(.system(size: 20, weight: .bold, design: .default))
-                .foregroundColor(.white)
-                .padding(.top, 30)
-                .padding(.horizontal)
-                
-            
-        }
-        .shadow( color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 5) // Add shading
-        .padding()
+                    
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color( red: 49 / 255, green: 173 / 255, blue: 1))
+                        .frame(width: 360, height: 150)
+                    
+                    Text(question)
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .foregroundColor(.white)
+                        .padding(.top, 30)
+                        .padding(.horizontal)
+                    
+        }.padding()
+        
     }
 }
 
 struct QuestionRowPreviews : PreviewProvider{
         static var previews: some View {
-            QuestionRow(question : "What is the capital of France ?", time:true)
+            QuestionRow(question : "What is the capital of France?", time:true)
         }
     
 }

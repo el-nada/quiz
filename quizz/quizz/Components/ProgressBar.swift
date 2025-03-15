@@ -15,20 +15,10 @@ struct ProgressBar: View {
     var body: some View {
             ZStack{
                 
-                //Other option for style
-                //Rectangle()
-                //    .frame(width: .infinity, height: 8.0)
-                //    .padding()
-                //    .foregroundColor(
-                //        Color( red: 220 / 255, green: 241 / 255, blue: 1))
-                //    .cornerRadius(20)
-                //    .overlay( RoundedRectangle(cornerRadius: 20)
-                //        .stroke(Color(Color (red: 49/255, green:173/255, blue:1))).opacity(0.6))
-                
                 HStack{
                     ZStack(alignment: .topLeading){
                         Rectangle()
-                            .frame(width: 280, height: 8.0)
+                            .frame(width: 240, height: 8.0)
                             .foregroundColor(
                                 Color( red: 220 / 255, green: 241 / 255, blue: 1))
                             .cornerRadius(20)
@@ -37,9 +27,10 @@ struct ProgressBar: View {
                         
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color( red: 49 / 255, green: 173 / 255, blue: 1))
-                            .frame(width: progress, height: 8.0)
+                            .frame(width: max(0, progress), height: 8.0)
                         
                     }.padding(.horizontal, 10)
+                    
                     
                     Text (String(level)+"/"+String(totalLevels))
                         .font(.system(size: 15, weight: .bold, design: .default))

@@ -15,6 +15,7 @@ class TriviaManager: ObservableObject {
     @Published private(set) var index = 0
     @Published private(set) var score = 0
     @Published private(set) var answered = 0
+    @Published private(set) var categorySelected = false
     @Published private(set) var isFinished = false
     @Published private(set) var answerSelected = false
     @Published private(set) var question: AttributedString = ""
@@ -56,6 +57,7 @@ class TriviaManager: ObservableObject {
                 self.length = self.trivia.count
                 self.setQuestion()
                 self.isLoading = false
+                self.categorySelected = false
             }
             
             
@@ -80,7 +82,7 @@ class TriviaManager: ObservableObject {
     
     func setQuestion() {
         answerSelected = false
-        progress = CGFloat((Double(index) + 1) / Double(length)) * 280
+        progress = CGFloat((Double(index) + 1) / Double(length)) * 240
         
         if index < length {
             let currentQuestion = trivia[index]
@@ -108,6 +110,7 @@ class TriviaManager: ObservableObject {
         answerChoices = []
         progress = 0
         answered=0
+        
     }
     
     func viewAnswers(){
@@ -118,6 +121,7 @@ class TriviaManager: ObservableObject {
     }
     
     func category(index:Int){
+        categorySelected = true
         category = index
     }
 }

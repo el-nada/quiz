@@ -17,7 +17,7 @@ struct AnswerRow: View {
         
         HStack(){
             Text(answer.text)
-                .frame(maxWidth:.infinity, alignment:.leading)
+                .frame(maxWidth:300, alignment:.leading)
                 .font(.system(size: 20, weight: .bold, design: .default))
             
             ZStack{

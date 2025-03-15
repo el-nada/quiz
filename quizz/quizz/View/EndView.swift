@@ -51,7 +51,7 @@ struct EndView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12).foregroundColor(
                         Color( red: 220 / 255, green: 241 / 255, blue: 1))
-                    .frame(width: .infinity, height: 200, alignment: .center)
+                    .frame(width: 350, height: 200, alignment: .center)
                     .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 7)
                     .padding(.horizontal, 20)
                     

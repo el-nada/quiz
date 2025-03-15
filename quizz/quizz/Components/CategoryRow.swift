@@ -59,15 +59,16 @@ struct CategoryRow: View {
         } else {
             
             Button{
-                
-                isSelected.toggle()
-                trivia_manager.category(index:(index+10))
-                print(trivia_manager.category)
-                Task {
-                    await trivia_manager.fetchTrivia() // Fetch data
-                    navigationPath.append("TriviaView") // Trigger navigation
+                if !trivia_manager.categorySelected{
+                    isSelected.toggle()
+                    trivia_manager.category(index:(index+10))
+                    print(trivia_manager.category)
+                    Task {
+                        
+                        await trivia_manager.fetchTrivia() // Fetch data
+                        navigationPath.append("TriviaView") // Trigger navigation
+                    }
                 }
-                
                 
             }label:{
                 
