@@ -19,7 +19,7 @@ struct PrimaryButton: View {
            .cornerRadius(20)
            .foregroundColor(.white)
            .font(.system(size: 20, weight: .bold, design: .default))
-           .shadow(radius: 8)
+           .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 8)
            .padding(20)
    }
 }

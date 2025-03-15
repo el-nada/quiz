@@ -10,6 +10,7 @@ import Combine
 
 class TriviaManager: ObservableObject {
     private(set) var trivia: [Trivia.Result] = []
+    @Published private(set) var category = 10
     @Published private(set) var length = 0
     @Published private(set) var index = 0
     @Published private(set) var score = 0
@@ -31,8 +32,7 @@ class TriviaManager: ObservableObject {
         
         isLoading = true
         errorMessage = nil
-        
-        guard let url = URL(string: "https://opentdb.com/api.php?amount=10&category=10") else {
+        guard let url = URL(string: ("https://opentdb.com/api.php?amount=10&category="+String(category))) else {
             errorMessage = "Invalid URL"
             isLoading = false
             return
@@ -114,5 +114,10 @@ class TriviaManager: ObservableObject {
         index = 0
         isFinished = false
         viewAnswer = true
+        setQuestion()
+    }
+    
+    func category(index:Int){
+        category = index
     }
 }

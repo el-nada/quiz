@@ -13,10 +13,8 @@ struct EndView: View {
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .ignoresSafeArea()
-                .foregroundColor(
-                    Color( red: 220 / 255, green: 241 / 255, blue: 1))
+            Background()
+            
             VStack{
                 Spacer()
                 
@@ -25,6 +23,7 @@ struct EndView: View {
                         .foregroundColor(Color(red: 49/255, green: 173/255, blue: 1).opacity(0.3))
                         .frame(width: 200, height: 200)
                         .padding()
+                        
                     
                     Circle()
                         .foregroundColor(Color(red: 49/255, green: 173/255, blue: 1).opacity(0.3))
@@ -41,6 +40,7 @@ struct EndView: View {
                         .frame(width: 150, height: 150)
                         .padding()
                     
+                    
                     Text(" \(trivia_manager.score*100) pts")
                         .font(.system(size: 36, weight: .bold, design: .default))
                         .foregroundColor(
@@ -52,7 +52,7 @@ struct EndView: View {
                     RoundedRectangle(cornerRadius: 12).foregroundColor(
                         Color( red: 220 / 255, green: 241 / 255, blue: 1))
                     .frame(width: .infinity, height: 200, alignment: .center)
-                    .shadow(radius: 7)
+                    .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 7)
                     .padding(.horizontal, 20)
                     
                     VStack{
@@ -138,6 +138,11 @@ struct EndView: View {
                         }label: {
                             Image(systemName: "house.circle.fill")
                                 .font(.system(size: 40))
+                                .background(Circle()
+                                    .fill(Color(red: 1, green: 1, blue: 1))
+                                    .frame(width: 40, height: 40)
+                                    .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 2, x: -2, y: 4))
+                                .padding(5)
                                 
                         }
                         
@@ -166,6 +171,11 @@ struct EndView: View {
                             } label: {
                                 Image(systemName: "arrow.counterclockwise.circle.fill")
                                     .font(.system(size: 40))
+                                    .background(Circle()
+                                        .fill(Color(red: 1, green: 1, blue: 1))
+                                        .frame(width: 40, height: 40)
+                                        .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 2, x: -2, y: 4))
+                                    .padding(5)
                             }
                             Text("Play Again").font(.system(size: 20, weight:.bold, design: .default))
                         }
@@ -182,6 +192,11 @@ struct EndView: View {
                         }label: {
                             Image(systemName: "eye.circle.fill")
                                 .font(.system(size: 40))
+                                .background(Circle()
+                                    .fill(Color(red: 1, green: 1, blue: 1))
+                                    .frame(width: 40, height: 40)
+                                    .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 2, x: -2, y: 4))
+                                .padding(5)
                                 
                         }
                         

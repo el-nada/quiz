@@ -63,7 +63,7 @@ struct AnswerRow: View {
                             answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8)
                         } else {
                             // Default behavior: blue if selected, gray otherwise
-                            isSelected ? (answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8)) : .gray.opacity(0.8)
+                            isSelected ? (answer.isCorrect ? .green.opacity(0.8) : .red.opacity(0.8)) : Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8)
                         }
                     }(),
                     radius: 5

@@ -14,11 +14,7 @@ struct QuestionView: View {
     var body: some View {
         
         ZStack{
-            Rectangle()
-                .ignoresSafeArea()
-                .foregroundColor(
-                    Color( red: 220 / 255, green: 241 / 255, blue: 1))
-            
+            Background()
             
             VStack{
                 HStack{

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		01008C332D83291300845C8E /* TriviaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01008C322D83291300845C8E /* TriviaManager.swift */; };
-		01008C382D83461500845C8E /* mockdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 01008C372D83461500845C8E /* mockdata.json */; };
 		0152ABA52D7C9CCE00DFDFCE /* quizzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0152ABA42D7C9CCE00DFDFCE /* quizzApp.swift */; };
 		0152ABA92D7C9CD000DFDFCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0152ABA82D7C9CD000DFDFCE /* Assets.xcassets */; };
 		0152ABAC2D7C9CD000DFDFCE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0152ABAB2D7C9CD000DFDFCE /* Preview Assets.xcassets */; };
@@ -16,7 +15,6 @@
 
 /* Begin PBXFileReference section */
 		01008C322D83291300845C8E /* TriviaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaManager.swift; sourceTree = "<group>"; };
-		01008C372D83461500845C8E /* mockdata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockdata.json; sourceTree = "<group>"; };
 		0152ABA12D7C9CCE00DFDFCE /* quizz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quizz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0152ABA42D7C9CCE00DFDFCE /* quizzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizzApp.swift; sourceTree = "<group>"; };
 		0152ABA82D7C9CD000DFDFCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,7 +43,6 @@
 			children = (
 				0152ABA32D7C9CCE00DFDFCE /* quizz */,
 				01008C322D83291300845C8E /* TriviaManager.swift */,
-				01008C372D83461500845C8E /* mockdata.json */,
 				0152ABA22D7C9CCE00DFDFCE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,7 +139,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01008C382D83461500845C8E /* mockdata.json in Resources */,
 				0152ABAC2D7C9CD000DFDFCE /* Preview Assets.xcassets in Resources */,
 				0152ABA92D7C9CD000DFDFCE /* Assets.xcassets in Resources */,
 			);

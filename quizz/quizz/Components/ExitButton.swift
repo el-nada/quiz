@@ -16,7 +16,7 @@ struct ExitButton: View {
                 .background(Circle()
                     .fill(Color(red: 1, green: 1, blue: 1))
                     .frame(width: 30, height: 30)
-                    .shadow(radius: 2, x: -2, y: 4))
+                    .shadow(color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 2, x: -2, y: 4))
         }
             
     }

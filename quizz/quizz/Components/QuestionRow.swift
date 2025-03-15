@@ -26,7 +26,7 @@ struct QuestionRow: View {
                 
             
         }
-        .shadow( color: .gray.opacity(0.8), radius: 5) // Add shading
+        .shadow( color: Color(red: 49 / 255, green: 173 / 255, blue: 1).opacity(0.8), radius: 5) // Add shading
         .padding()
     }
 }
